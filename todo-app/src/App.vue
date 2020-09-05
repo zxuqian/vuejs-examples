@@ -1,45 +1,26 @@
 <template>
   <main>
     <div class="container">
-      <h1>Feng Todo</h1>
-      <input type="text" name="todo" id class="input-suffix" />
-      <div class="filters">
-        <span class="filter">全部</span>
-        <span class="filter">已完成</span>
-        <span class="filter">未完成</span>
-      </div>
-      <div class="tood-list">
-        <div class="todo-item">
-          <label>
-            <input type="checkbox" name id />
-            Todo 1
-          </label>
-        </div>
-        <div class="todo-item">
-          <label>
-            <input type="checkbox" name id />
-            Todo 2
-          </label>
-        </div>
-        <div class="todo-item">
-          <label>
-            <input type="checkbox" name id />
-            Todo 3
-          </label>
-        </div>
-      </div>
+      <h1>欢迎使用 Feng 待办事项！</h1>
+      <todo-add />
+      <todo-filter />
+      <todo-list />
     </div>
   </main>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
+import TodoAdd from "./components/TodoAdd.vue";
+import TodoFilter from "./components/TodoFilter.vue";
+import TodoList from "./components/TodoList.vue";
 
 export default {
   name: "App",
-  // components: {
-  //   HelloWorld,
-  // },
+  components: {
+    TodoAdd,
+    TodoFilter,
+    TodoList,
+  },
 };
 </script>
 
@@ -56,26 +37,24 @@ main {
   width: 100vw;
   height: 100vh;
   display: grid;
-  align-content: center;
-  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  background: rgb(203, 210, 240);
 }
 
 .container {
+  width: 60%;
+  max-width: 400px;
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.15);
   border-radius: 24px;
-  padding: 24px 18px;
+  padding: 48px 28px;
+  background-color: rgb(245, 246, 252);
 }
 
 /* 标题 */
 h1 {
   margin: 24px 0;
-  font-size: 24px;
-}
-
-/* 添加框 */
-.input-suffix {
-  border: 1px solid #eeeeee;
-  padding: 10px 8px;
-  border-radius: 8px;
+  font-size: 28px;
+  color: #414873;
 }
 </style>
