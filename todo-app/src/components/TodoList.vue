@@ -1,6 +1,8 @@
 <template>
   <div class="todo-list">
-    <todo-list-item v-for="n in 3" :key="n">Todo {{n}}</todo-list-item>
+    <todo-list-item v-for="todo in todos" :key="todo.content">{{
+      todo.content
+    }}</todo-list-item>
   </div>
 </template>
 
@@ -12,6 +14,7 @@ export default {
   components: {
     TodoListItem,
   },
+  props: ["todos"],
 };
 </script>
 

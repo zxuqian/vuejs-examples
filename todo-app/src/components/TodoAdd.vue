@@ -1,15 +1,27 @@
 <template>
   <div class="input-add">
-    <input type="text" name="todo" />
-    <button>
+    <input type="text" v-model="todoContent" />
+    <button @click="$emit('add-todo', todo)">
       <i class="plus"></i>
     </button>
   </div>
 </template>
 
 <script>
+import { computed, ref } from "vue";
 export default {
   name: "TodoAdd",
+  setup() {
+    const todoContent = ref("");
+    const todo = computed(() => ({
+      content: todoContent.value,
+      completed: false,
+    }));
+    return {
+      todoContent,
+      todo,
+    };
+  },
 };
 </script>
 
