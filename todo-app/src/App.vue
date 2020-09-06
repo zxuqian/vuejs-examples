@@ -26,8 +26,10 @@ export default {
     const todos = ref([]);
     const filter = ref("all");
 
+    // 添加 todo
     const addTodo = (todo) => todos.value.push(todo);
 
+    // 过滤 todo
     const filteredTodos = computed(() => {
       switch (filter.value) {
         case "done":
@@ -60,9 +62,10 @@ export default {
 /* 整个页面 */
 main {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 10vh 0;
   display: grid;
-  align-items: center;
+  align-items: start;
   justify-items: center;
   background: rgb(203, 210, 240);
 }
@@ -70,6 +73,7 @@ main {
 .container {
   width: 60%;
   max-width: 400px;
+
   box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.15);
   border-radius: 24px;
   padding: 48px 28px;

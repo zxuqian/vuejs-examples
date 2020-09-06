@@ -36,6 +36,7 @@ export default {
   margin: 24px 2px;
   color: #c0c2ce;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .filters .filter {

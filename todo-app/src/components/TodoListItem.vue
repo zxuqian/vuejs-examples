@@ -28,6 +28,7 @@ export default { name: "TodoListItem", props: ["todoItem"] };
   position: relative;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .todo-item.done label {
