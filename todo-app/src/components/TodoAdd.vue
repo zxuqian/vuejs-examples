@@ -53,6 +53,8 @@ export default {
   color: white;
   position: absolute;
   right: 0px;
+
+  cursor: pointer;
 }
 
 .input-add .plus {
