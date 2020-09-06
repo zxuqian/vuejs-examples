@@ -55,6 +55,7 @@ export default {
   right: 0px;
 
   cursor: pointer;
+  outline: none;
 }
 
 .input-add .plus {
