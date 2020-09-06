@@ -9,11 +9,14 @@
 
 <script>
 import { computed, ref } from "vue";
+
 export default {
   name: "TodoAdd",
-  setup() {
+  props: ["tid"],
+  setup(props) {
     const todoContent = ref("");
     const todo = computed(() => ({
+      id: props.tid,
       content: todoContent.value,
       completed: false,
     }));

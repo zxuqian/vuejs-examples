@@ -2,15 +2,15 @@
   <main>
     <div class="container">
       <h1>欢迎使用 Feng 待办事项！</h1>
-      <todo-add @add-todo="addTodo" />
-      <todo-filter />
-      <todo-list :todos="todos" />
+      <todo-add :tid="todos.length" @add-todo="addTodo" />
+      <todo-filter :selected="filter" @change-filter="filter = $event" />
+      <todo-list :todos="filteredTodos" />
     </div>
   </main>
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import TodoAdd from "./components/TodoAdd.vue";
 import TodoFilter from "./components/TodoFilter.vue";
 import TodoList from "./components/TodoList.vue";
@@ -24,18 +24,20 @@ export default {
   },
   setup() {
     const todos = ref([]);
-    const filter = ref("");
+    const filter = ref("all");
 
     const addTodo = (todo) => todos.value.push(todo);
 
-    const filteredTodos = (filter) => {
-      if (filter) {
-        todos.value.filter((todo) =>
-          filter === "done" ? todo.completed : !todo.completed
-        );
+    const filteredTodos = computed(() => {
+      switch (filter.value) {
+        case "done":
+          return todos.value.filter((todo) => todo.completed);
+        case "todo":
+          return todos.value.filter((todo) => !todo.completed);
+        default:
+          return todos.value;
       }
-      return todos;
-    };
+    });
 
     return {
       todos,
