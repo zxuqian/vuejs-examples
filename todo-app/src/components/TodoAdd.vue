@@ -41,6 +41,9 @@ export default {
   color: white;
   position: absolute;
   right: 0px;
+
+  cursor: pointer;
+  outline: none;
 }
 
 .input-add .plus {
