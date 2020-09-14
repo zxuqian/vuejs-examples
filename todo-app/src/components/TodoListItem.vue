@@ -1,15 +1,19 @@
 <template>
-  <div class="todo-item">
+  <div class="todo-item" :class="{ done: todoItem.completed }">
     <label>
-      <input type="checkbox" />
-      <slot></slot>
+      <input
+        type="checkbox"
+        :checked="todoItem.completed"
+        @click="$emit('change-state', $event)"
+      />
+      {{ todoItem.content }}
       <span class="check-button"></span>
     </label>
   </div>
 </template>
 
 <script>
-export default { name: "TodoListItem" };
+export default { name: "TodoListItem", props: ["todoItem"] };
 </script>
 
 <style>
@@ -24,6 +28,12 @@ export default { name: "TodoListItem" };
   position: relative;
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+
+.todo-item.done label {
+  text-decoration: line-through;
+  font-style: italic;
 }
 
 .todo-item label span.check-button {
