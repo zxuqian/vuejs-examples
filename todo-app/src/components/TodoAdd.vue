@@ -8,15 +8,35 @@
 </template>
 
 <script>
-import useEmitAddTodos from "@/composables/useEmitAddTodo.js";
+import { ref } from "vue";
 
 export default {
   name: "TodoAdd",
   props: ["tid"],
   setup(props, context) {
-    return useEmitAddTodos(props.tid, context.emit);
+    return useEmitAddTodo(props.tid, context.emit);
   },
 };
+
+// TodoAdd 组件专属 Composable
+function useEmitAddTodo(tid, emit) {
+  const todoContent = ref("");
+
+  const emitAddTodo = () => {
+    const todo = {
+      id: tid,
+      content: todoContent.value,
+      completed: false,
+    };
+    emit("add-todo", todo);
+    todoContent.value = "";
+  };
+
+  return {
+    todoContent,
+    emitAddTodo,
+  };
+}
 </script>
 
 <style>
