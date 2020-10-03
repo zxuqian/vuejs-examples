@@ -1,11 +1,11 @@
 <template>
   <div class="filters">
     <span
-      class="filter"
-      :class="{ active: selected == filter.value }"
       v-for="filter in filters"
       :key="filter.value"
       @click="$emit('change-filter', filter.value)"
+      class="filter"
+      :class="{ active: selected == filter.value }"
       >{{ filter.label }}</span
     >
     <!-- <span class="filter" @click="$emit('change-filter', 'done')">已完成</span> -->
