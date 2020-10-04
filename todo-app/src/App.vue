@@ -24,8 +24,8 @@ export default {
     TodoList,
   },
   setup() {
-    const {todos, addTodo} = useTodos();
-    const {filter, filteredTodos} = useFilteredTodos(todos);
+    const { todos, addTodo } = useTodos();
+    const { filter, filteredTodos } = useFilteredTodos(todos);
     return {
       todos,
       filter,
@@ -52,7 +52,7 @@ main {
   display: grid;
   align-items: start;
   justify-items: center;
-  background: rgb(203, 210, 240);
+  background: #d8dfff;
 }
 
 .container {

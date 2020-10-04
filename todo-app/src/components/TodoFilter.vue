@@ -5,7 +5,7 @@
       :key="filter.value"
       @click="$emit('change-filter', filter.value)"
       class="filter"
-      :class="{ active: selected == filter.value }"
+      :class="{ active: selected === filter.value }"
       >{{ filter.label }}</span
     >
     <!-- <span class="filter" @click="$emit('change-filter', 'done')">已完成</span> -->
@@ -14,16 +14,15 @@
 </template>
 
 <script>
-import { reactive } from "vue";
 export default {
   name: "TodoFilter",
   props: ["selected"],
   setup() {
-    const filters = reactive([
+    const filters = [
       { label: "全部", value: "all" },
       { label: "已完成", value: "done" },
       { label: "未完成", value: "todo" },
-    ]);
+    ];
 
     return { filters };
   },
