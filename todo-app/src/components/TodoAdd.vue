@@ -12,6 +12,7 @@ import { ref } from "vue";
 
 export default {
   name: "TodoAdd",
+  props: ["tid"],
   setup(props, context) {
     return useEmitAddTodo(props.tid, context.emit);
   },
