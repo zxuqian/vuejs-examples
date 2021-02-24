@@ -1,20 +1,32 @@
 <template>
   <Chart :options="options" :class="$attrs.class" />
-  <button @click="changeTitle">点我</button>
 </template>
 
 <script setup>
 import Chart from "./Chart.vue";
 import barChartOptionCreator from "../charts/barChart.js";
-import { ref } from "vue";
+import useMovieData from "../composables/useMovieData";
+import {
+  computed,
+  defineProps,
+  isRef,
+  onMounted,
+  ref,
+  toRefs,
+  watch,
+  watchEffect,
+} from "vue";
 
-const options = ref(barChartOptionCreator());
+const props = defineProps({
+  boxOfficeData: Array,
+});
 
-function changeTitle() {
-  options.value.title = {
-    text: "test",
-  };
-}
+const { boxOfficeData } = toRefs(props);
+
+const options = computed(() => {
+  const { names, boxOffices } = useMovieData(boxOfficeData.value);
+  return barChartOptionCreator(names, boxOffices);
+});
 </script>
 
 <style module></style>

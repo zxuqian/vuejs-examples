@@ -3,27 +3,33 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, ref, toRefs, watch, watchEffect } from "vue";
+import { defineProps, onMounted, ref, toRefs, watch } from "vue";
 import * as echarts from "echarts";
 
-const { options } = defineProps({
-  options: {},
+const props = defineProps({
+  options: {
+    type: Object,
+    default: {},
+    required: true,
+  },
 });
+
+const { options } = toRefs(props);
 
 const container = ref(null);
 const chart = ref(null);
 
 onMounted(() => {
-  chart.value = echarts.init(container.value);
-  chart.value.setOption(options);
+  if (props.options) {
+    chart.value = echarts.init(container.value);
+    chart.value.setOption(props.options);
+  }
 });
 
 watch(
   options,
   () => {
-    if (chart) {
-      chart.value.setOption(options);
-    }
+    chart.value.setOption(props.options);
   },
   { deep: true }
 );

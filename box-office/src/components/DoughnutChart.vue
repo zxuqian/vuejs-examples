@@ -1,9 +1,10 @@
 <template>
-  <Chart />
+  <Chart :options="doughnutChartCreator()" />
 </template>
 
 <script setup>
-import { Chart } from "./Chart.vue";
+import Chart from "./Chart.vue";
+import doughnutChartCreator from "../charts/doughnutChart.js";
 </script>
 
-<style></style>
+<style module></style>
