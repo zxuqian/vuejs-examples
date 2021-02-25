@@ -21,9 +21,6 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
 </script>
 
 <style>
@@ -47,14 +44,14 @@ body {
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-items: center;
 }
 .wrapper .chart {
-  width: 500px;
-  height: 500px;
+  width: 80%;
+  height: 400px;
 }
 </style>

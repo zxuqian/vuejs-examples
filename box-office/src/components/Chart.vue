@@ -21,7 +21,7 @@ const chart = ref(null);
 
 onMounted(() => {
   if (props.options) {
-    chart.value = echarts.init(container.value);
+    chart.value = echarts.init(container.value, "dark");
     chart.value.setOption(props.options);
   }
 });
@@ -35,7 +35,7 @@ watch(
 );
 </script>
 
-<style module>
+<style scoped>
 .container {
   width: 100%;
   height: 100%;
