@@ -20,6 +20,7 @@ export default (categories = [], data = []) => {
       top: 80,
       containLabel: true,
     },
+
     xAxis: {
       type: "value",
       splitLine: {
@@ -98,12 +99,12 @@ export default (categories = [], data = []) => {
             y2: 1,
             colorStops: [
               {
-                offset: 1,
-                color: "hsl(0deg, 100%, 60%)",
-              },
-              {
                 offset: 0,
                 color: "hsl(0deg, 80%, 50%)",
+              },
+              {
+                offset: 1,
+                color: "hsl(0deg, 100%, 60%)",
               },
             ],
           },

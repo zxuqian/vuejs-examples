@@ -20,16 +20,16 @@ const container = ref(null);
 const chart = ref(null);
 
 onMounted(() => {
-  if (props.options) {
+  if (options.value) {
     chart.value = echarts.init(container.value, "dark");
-    chart.value.setOption(props.options);
+    chart.value.setOption(options.value);
   }
 });
 
 watch(
   options,
-  () => {
-    chart.value.setOption(props.options);
+  (newOptions) => {
+    chart.value.setOption(newOptions);
   },
   { deep: true }
 );
