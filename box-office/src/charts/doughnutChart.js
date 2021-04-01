@@ -64,8 +64,8 @@ export default (data) => ({
         },
       },
       labelLine: {
-        length: 30,
-        length2: "20%",
+        length: 10,
+        length2: "10%",
         smooth: true,
         lineStyle: {
           type: "dashed",
