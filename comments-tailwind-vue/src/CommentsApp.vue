@@ -6,14 +6,14 @@
       <!-- 分隔线 -->
       <DividerHorizontal />
       <div v-for="comment in comments" :key="comment.id">
-        <!-- 单个留言 -->
+        <!-- 留言 -->
         <CommentItem
           :user="comment.user"
           :avatar="comment.avatar"
           :time="comment.time"
           :content="comment.content"
         />
-        <!-- 回复列表 -->
+        <!-- 留言列表 -->
         <ReplyContainer v-if="comment.replies">
           <CommentItem
             v-for="reply in comment.replies"
@@ -24,7 +24,7 @@
             :content="reply.content"
           />
         </ReplyContainer>
-        <ReplyBox @submit="addReply($event, comment.id)" />
+        <ReplyBox @submit="addNewComment($event, comment.id)" />
       </div>
     </div>
   </main>
@@ -34,68 +34,51 @@
 import CommentBox from "./components/CommentBox.vue";
 import DividerHorizontal from "./components/DividerHorizontal.vue";
 import CommentItem from "./components/CommentItem.vue";
-import ReplyContainer from "./components/ReplyContainer.vue";
 import ReplyBox from "./components/ReplyBox.vue";
+import ReplyContainer from "./components/ReplyContainer.vue";
 
 import face1 from "./assets/face1.png";
 import face2 from "./assets/face2.png";
 import face3 from "./assets/face3.png";
 import face4 from "./assets/face4.png";
-import { ref } from "vue";
 
-let rid = ref(4);
+import { ref, onMounted } from "vue";
 
-const comments = ref([
-  {
-    id: 1,
-    user: "梦落轻寻",
-    avatar: face1,
-    time: "2小时之前",
-    content:
-      "哇！这篇文章真是写的太好啦！收到很大的启发，希望博主能够再接再厉，产出越来越多，越来越好的文章！凑字数，字数，字数...",
-    replies: [
-      {
-        id: 2,
-        user: "陌上花开",
-        avatar: face2,
-        time: "2小时之前",
-        content: "赞！",
-      },
-      {
-        id: 3,
-        user: "半梦半醒半浮生√<",
-        avatar: face3,
-        time: "2小时之前",
-        content:
-          "这是一篇非常长的长篇大论，这篇文章写的非常好，无论是技术点还是理论点，都非常的好。而且主题分明，每一个点都有自己的解释，这篇文章的主题是：CSS3的新特性，如何使用CSS3的新特性，以及如何使用CSS3的新特性。真的是非常好的文章。",
-      },
-    ],
-  },
-]);
+const comments = ref([]);
 
-const constructNewComment = (content) => {
-  return {
-    id: rid.value++,
-    user: "当前用户",
-    avatar: face4,
-    content,
-    time: "1秒前",
-  };
-};
+async function getAllComments() {
+  const res = await fetch("/api/comments");
+  comments.value = await res.json();
+}
 
-const addNewComment = (content) => {
-  const newComment = constructNewComment(content);
-  comments.value.push(newComment);
-};
+onMounted(() => {
+  getAllComments();
+});
 
-const addReply = (content, id) => {
-  const reply = constructNewComment(content);
-  let comment = comments.value.find((comment) => comment.id === id);
-  if (comment.replies) {
-    comment.replies.push(reply);
+const addNewComment = async (content, replyTo) => {
+  const res = await fetch(`/api/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      content,
+      ...(replyTo && { replyTo }),
+    }),
+  });
+
+  const newComment = await res.json();
+  if (!replyTo) {
+    comments.value.unshift(newComment);
   } else {
-    comment.replies = [reply];
+    comments.value.find((c) => c.id === replyTo).replies.unshift(newComment);
   }
+
+  // 新增完评论后，自动获取新的评论列表
+  // Notion API 有延迟，在添加完 page 之后，需要过一会才能获取到新的评论列表
+  // setTimeout(async () => {
+  //   await getAllComments();
+  // }, 1000);
 };
 </script>
 
